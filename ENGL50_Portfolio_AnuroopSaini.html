@@ -467,7 +467,20 @@
       genre: "Author's Notes",
       title: "Author's Notes",
       type: 'notes',
-      content: ``   // ← paste your typed Author's Notes here, or change type to 'pdf' and paste base64 in content
+      content: `**Author's Note (Epilogue)**
+      
+      Creative writing has always been a space I gravitated toward—poetry, especially, felt like the purest form of expression. I have long believed in the power of brevity, in the idea that words, when arranged with care, can carry weight through rhythm and restraint. Ironically, my own writing often resists that principle. I tend toward expansiveness—toward detail, length, and an insistence on saying what silence might otherwise imply. This portfolio reflects that tension. Each piece here is the result of weeks of drafting, revising, and rethinking—processes that allowed me to articulate ideas I often struggle to express aloud. While high school laid the foundation for my interest in writing, it was in this class, under Professor Ellen Skirvin, that I truly felt the freedom to write without constraint. I am equally grateful to my peers, whose feedback consistently challenged and refined my work.
+
+      My poetry leans toward the melancholic—toward noir tones and introspective unease. *The Foyer Light* was written as a blues poem, consciously shaped by repetition and rhythm rooted in the blues tradition. The recurring lines were designed to echo the cyclical nature of time, routine, and regret, reinforcing the central question: whether time has been used honestly or merely allowed to pass. The image of the foyer light emerged from a liminal domestic space—neither fully inside nor outside—mirroring a personal uncertainty about living deliberately. Because the theme risked redundancy, I revised this piece extensively, experimenting with structure, repetition, and imagery so that each return to a line subtly altered its meaning rather than repeating it.
+
+      *For the Boy I Overlooked* draws from a lingering childhood memory, one that has quietly shaped my understanding of self-worth. The metaphor of chess became a framework for self-surveillance—constant calculation without self-forgiveness. Unlike my other poem, this piece came more intuitively, though it required careful revision around its emotional turn. I wanted the shift toward self-recognition to feel earned, not contrived. At its core, the poem is less about regret and more about reckoning: acknowledging the unnoticed effort and unrecognized value of a younger self. The realization driving the poem felt almost temporal in nature—collapsing past and present into a single moment where observer and observed become indistinguishable. Capturing that intensity, without softening it into comfort, was both the challenge and the purpose.
+
+      Nonfiction, by contrast, has always felt restrictive to me. I often associated it with limits rather than possibility. However, through this course, I began to understand the role of interiority and reflection in shaping personal narrative. *Soundtrack of Me* traces my journey with music—from picking up the guitar as a beginner to finding meaning in it beyond performance. Structurally, I approached the essay as a series of "tracks," mirroring the progression of music itself. This allowed me to organize different phases of my life while maintaining cohesion. The primary challenge was avoiding repetition across a long time span; I worked to ensure that each section contributed something distinct, using dialogue and reflection to sustain engagement.
+
+      Fiction was, in many ways, a return to something I had always wanted to pursue. *Loop Sixty Seven* began as an experiment—an attempt to move away from conventional storytelling and toward something more unsettling and open-ended. I was drawn to the idea of a dystopian world where survival becomes spectacle, and where progress itself is rendered meaningless. Rather than beginning with characters, I built the world first, allowing the setting to shape those within it. This approach made the characters feel more organic, as their identities emerged from their responses to the environment rather than from predetermined roles. Influenced by works like *The Hunger Games* and *Alice in Borderland*, I sought to push further into psychological and existential territory, exploring repetition, identity, and resistance. Balancing the complexity of these ideas with clarity and pacing proved to be the most difficult aspect of the process.
+
+      Across all these works, revision has been central. Each piece reflects not only my initial intent but also the influence of feedback—moments where I had to reconsider structure, clarity, and emotional impact. I made a conscious effort to engage with every critique, refining my writing to better communicate what I set out to express. Through this process, I have grown significantly as a writer—not just in technique, but in my willingness to question my own assumptions and take creative risks. While there may still be imperfections, this portfolio represents an honest effort to learn, adapt, and improve. I remain grateful for the guidance and feedback that shaped it, and I hope that, even where it falls short, the intent behind the work remains clear.`
+      }// ← paste your typed Author's Notes here, or change type to 'pdf' and paste base64 in content
     }
   };
 
@@ -626,10 +639,15 @@ async function renderPdfPages(dataUrl, containerId) {
   }
 
   function formatProse(raw) {
-    return raw.split('\n\n')
-      .map(para => `<p>${para.trim()}</p>`)
-      .join('');
-  }
+  return raw.split('\n\n')
+    .map(para => {
+      let p = para.trim();
+      p = p.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      p = p.replace(/\*(.+?)\*/g, '<em>$1</em>');
+      return `<p>${p}</p>`;
+    })
+    .join('');
+}
 </script>
 </body>
 </html>
